@@ -14,6 +14,7 @@ struct ListView : View {
     var body: some View {
 
         NavigationView {
+
             List {
 
                 Section {
@@ -23,7 +24,16 @@ struct ListView : View {
                 }
 
                 Section {
-                    ForEach(service.places) { place in
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                        Divider()
+                        TextField($service.search)
+
+                    }
+                }
+
+                Section {
+                    ForEach(service.filter()) { place in
                         PlaseRow(place: place)
                     }
                     .onDelete(perform: deletePlace)

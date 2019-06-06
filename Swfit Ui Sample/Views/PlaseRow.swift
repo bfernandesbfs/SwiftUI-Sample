@@ -9,15 +9,20 @@
 import SwiftUI
 
 struct PlaseRow : View {
-
+    @State var openSheet: Bool = false
     var place: Place
 
     var body: some View {
-        return NavigationButton(destination: DetailView(place: place)) {
+
+        NavigationButton(destination: DetailView(place: place)) {
             Image(place.imageName)
                 .resizable()
                 .frame(width: 50, height: 50)
                 .cornerRadius(Length(4))
+                .presentation(openActionSheet())
+                .tapAction {
+                    self.openSheet.toggle()
+            }
 
             VStack(alignment: .leading) {
                 Text(place.name)
@@ -26,5 +31,16 @@ struct PlaseRow : View {
                     .foregroundColor(.secondary)
             }
         }
+    }
+
+    func openActionSheet() -> ActionSheet? {
+
+        let action = ActionSheet(title: Text(place.name),
+                                 message: Text(place.park),
+                                 buttons: [ActionSheet.Button.default(Text("Open")) {
+                                    print("Aqui")
+                                    }, ActionSheet.Button.cancel()])
+
+        return openSheet ? action : nil
     }
 }

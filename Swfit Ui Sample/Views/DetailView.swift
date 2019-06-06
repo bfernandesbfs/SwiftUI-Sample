@@ -26,6 +26,7 @@ struct DetailView : View {
         }
         .navigationBarTitle(Text(place.name), displayMode: .inline)
     }
+
 }
 
 #if DEBUG
